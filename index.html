@@ -19,14 +19,17 @@
       padding: 40px 30px;
       border-radius: 16px;
       box-shadow: 0 0 25px rgba(0,0,0,0.08);
-      width: 320px;
+      width: 350px;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .login-box img {
-      width: 140px;
+      width: 200px; /* ✅ Logo 更大 */
       height: auto;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     h2 {
@@ -61,7 +64,7 @@
 </head>
 <body>
   <div class="login-box">
-    <!-- ⚠️ 上傳這張圖為 logo.png -->
+    <!-- ✅ 圖片放在最上方，寬 200px -->
     <img src="logo.png" alt="輕井澤 Logo">
     <h2>員工登入</h2>
     <input type="text" id="username" placeholder="帳號">
