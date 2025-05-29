@@ -2,49 +2,34 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>輕井澤員工系統</title>
+  <title>輕井澤請假表單</title>
   <style>
     body {
-      margin: 0;
       font-family: "微軟正黑體", sans-serif;
+      background: linear-gradient(to right, #e8f5e9, #a5d6a7);
       display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 60px;
       height: 100vh;
+      margin: 0;
     }
-    .sidebar {
-      width: 200px;
-      background-color: #2e7d32;
-      color: white;
-      padding: 20px;
+    .form-container {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      width: 400px;
     }
-    .sidebar h3 {
-      margin-top: 0;
-      font-size: 18px;
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2e7d32;
     }
-    .sidebar button {
+    label {
       display: block;
-      width: 100%;
-      margin: 10px 0;
-      padding: 10px;
-      border: none;
-      background-color: #388e3c;
-      color: white;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .sidebar button:hover {
-      background-color: #4caf50;
-    }
-    .content {
-      flex: 1;
-      padding: 30px;
-      background-color: #f1f8e9;
-      overflow-y: auto;
-    }
-    .form-section, .schedule-section {
-      display: none;
-    }
-    .form-section.active, .schedule-section.active {
-      display: block;
+      margin-top: 15px;
+      font-weight: bold;
     }
     input, select, textarea {
       width: 100%;
@@ -54,86 +39,89 @@
       border: 1px solid #ccc;
       box-sizing: border-box;
     }
-    button.submit-btn {
-      background-color: #66bb6a;
-      color: white;
+    .time-options {
+      margin-top: 10px;
+    }
+    .time-options input {
+      margin-right: 5px;
+    }
+    button {
       margin-top: 20px;
       width: 100%;
       padding: 12px;
+      background-color: #66bb6a;
       border: none;
-      border-radius: 6px;
+      color: white;
       font-weight: bold;
+      border-radius: 6px;
       cursor: pointer;
     }
-    button.submit-btn:hover {
+    button:hover {
       background-color: #4caf50;
     }
   </style>
 </head>
 <body>
-  <div class="sidebar">
-    <h3>輕井澤系統</h3>
-    <button onclick="showSection('form')">請假表單</button>
-    <button onclick="showSection('schedule')">查看班表</button>
-  </div>
+  <div class="form-container">
+    <h2>請假表單</h2>
+    <form id="leaveForm">
+      <label for="name">姓名</label>
+      <input type="text" id="name" required>
 
-  <div class="content">
-    <!-- 請假表單區 -->
-    <div class="form-section active">
-      <h2>請假表單</h2>
-      <form onsubmit="submitForm(event)">
-        <label>姓名</label>
-        <input type="text" required>
+      <label for="date">請假日期</label>
+      <input type="date" id="date" required>
 
-        <label>請假日期</label>
-        <input type="date" required>
+      <label for="type">假別</label>
+      <select id="type" required>
+        <option value="">請選擇</option>
+        <option value="事假">事假</option>
+        <option value="病假">病假</option>
+        <option value="特休">特休</option>
+      </select>
 
-        <label>假別</label>
-        <select required>
-          <option value="">請選擇</option>
-          <option value="事假">事假</option>
-          <option value="病假">病假</option>
-          <option value="特休">特休</option>
-        </select>
+      <label>請假時段</label>
+      <div class="time-options">
+        <label><input type="radio" name="time" value="上午" required> 上午</label>
+        <label><input type="radio" name="time" value="下午"> 下午</label>
+        <label><input type="radio" name="time" value="全天"> 全天</label>
+      </div>
 
-        <label>請假時段</label>
-        <div>
-          <label><input type="radio" name="time" value="上午" required> 上午</label>
-          <label><input type="radio" name="time" value="下午"> 下午</label>
-          <label><input type="radio" name="time" value="全天"> 全天</label>
-        </div>
+      <label for="reason">請假原因</label>
+      <textarea id="reason" rows="4" required></textarea>
 
-        <label>請假原因</label>
-        <textarea rows="4" required></textarea>
-
-        <button class="submit-btn" type="submit">送出</button>
-      </form>
-    </div>
-
-    <!-- 班表區 -->
-    <div class="schedule-section">
-      <h2>本週班表</h2>
-      <p>（這裡可以放一個月曆或表格，之後我可以幫你接資料庫或 JSON）</p>
-    </div>
+      <button type="submit">送出</button>
+    </form>
   </div>
 
   <script>
-    function showSection(section) {
-      document.querySelector('.form-section').classList.remove('active');
-      document.querySelector('.schedule-section').classList.remove('active');
-
-      if (section === 'form') {
-        document.querySelector('.form-section').classList.add('active');
-      } else if (section === 'schedule') {
-        document.querySelector('.schedule-section').classList.add('active');
-      }
-    }
-
-    function submitForm(event) {
+    document.getElementById("leaveForm").addEventListener("submit", function(event) {
       event.preventDefault();
-      alert("✅ 表單已提交！");
-      event.target.reset();
-    }
+
+      const data = {
+        name: document.getElementById("name").value,
+        date: document.getElementById("date").value,
+        type: document.getElementById("type").value,
+        time: document.querySelector('input[name="time"]:checked').value,
+        reason: document.getElementById("reason").value
+      };
+
+      fetch("https://script.google.com/macros/s/AKfycbxuYwtY7ehDvers4seHOdtSUVlr5U6VNh1ZEO3tiYQA7cRrFXKWzOBBraQ1LXeZHl0o/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.text())
+      .then(result => {
+        alert("✅ 表單已提交並儲存！");
+        document.getElementById("leaveForm").reset();
+      })
+      .catch(error => {
+        alert("❌ 提交失敗，請稍後再試");
+        console.error("錯誤：", error);
+      });
+    });
   </script>
 </body>
 </html>
