@@ -6,73 +6,75 @@
   <style>
     body {
       font-family: "微軟正黑體", sans-serif;
-      background-color: #f8f8f8;
+      background-color: #f4f4f4;
       display: flex;
       justify-content: center;
       align-items: flex-start;
       padding-top: 60px;
-      min-height: 100vh;
+      height: 100vh;
       margin: 0;
     }
     .form-container {
-      background: #fff;
+      background: white;
       padding: 30px 40px;
-      border-radius: 12px;
+      border-radius: 10px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
       width: 400px;
     }
     h2 {
       text-align: center;
-      margin-bottom: 20px;
       color: #2e7d32;
     }
     label {
+      margin-top: 12px;
       display: block;
-      margin-top: 15px;
       font-weight: bold;
     }
     input, select, textarea {
       width: 100%;
       padding: 10px;
-      margin-top: 5px;
-      border-radius: 6px;
+      margin-top: 6px;
       border: 1px solid #ccc;
+      border-radius: 6px;
       box-sizing: border-box;
     }
     .time-options {
       margin-top: 10px;
     }
     .time-options label {
-      display: inline-block;
       margin-right: 10px;
     }
     button {
       margin-top: 20px;
       width: 100%;
       padding: 12px;
-      background-color: #66bb6a;
-      border: none;
+      background-color: #4caf50;
       color: white;
-      font-weight: bold;
+      border: none;
       border-radius: 6px;
+      font-weight: bold;
       cursor: pointer;
     }
     button:hover {
-      background-color: #4caf50;
+      background-color: #388e3c;
     }
   </style>
 </head>
 <body>
   <div class="form-container">
     <h2>請假表單</h2>
-    <form method="POST" action="https://script.google.com/macros/s/AKfycbxbCmAERxwPQR8H0cb8ESckEmdwYcStXUhRqQbxQWIjgvwTaXHOTXtQ6rfKL1VysqUw/exec;">
-      <label for="name">姓名</label>
+    <form method="POST"
+          action="https://script.google.com/macros/s/AKfycbwGf05VZHaLmpSqPpRg5hSL29NN5cVMOa8kVgCYY4vPyyKRgtBXQG58ato5v4l6WBVN/exec"
+          target="hidden_iframe"
+          onsubmit="submitted=true;">
+      
+      <label>姓名</label>
       <input type="text" name="name" required>
 
-      <label for="date">請假日期</label>
+      <label>請假日期</label>
       <input type="date" name="date" required>
 
-      <label for="type">假別</label>
+      <label>假別</label>
       <select name="type" required>
         <option value="">請選擇</option>
         <option value="事假">事假</option>
@@ -87,18 +89,14 @@
         <label><input type="radio" name="time" value="全天"> 全天</label>
       </div>
 
-      <label for="reason">請假原因</label>
+      <label>請假原因</label>
       <textarea name="reason" rows="4" required></textarea>
 
       <button type="submit">送出</button>
     </form>
   </div>
 
-  <!-- ✅ 隱藏 iframe，避免畫面跳轉 -->
   <iframe name="hidden_iframe" style="display:none;" onload="if(submitted) alert('✅ 表單已提交並儲存！');"></iframe>
-
-  <script>
-    let submitted = false;
-  </script>
+  <script>let submitted = false;</script>
 </body>
 </html>
