@@ -35,7 +35,7 @@
     button {
       width: 100%;
       padding: 10px;
-      background-color: #26c6da;
+      background-color: #4A90E2;
       border: none;
       color: white;
       border-radius: 6px;
@@ -43,7 +43,7 @@
       cursor: pointer;
     }
     button:hover {
-      background-color: #00acc1;
+      background-color: #357ABD;
     }
   </style>
 </head>
@@ -60,9 +60,9 @@
       const user = document.getElementById("username").value;
       const pass = document.getElementById("password").value;
 
-      // 可換成實際帳密判斷
+      // 測試用帳密
       if (user === "staff" && pass === "1234") {
-        window.location.href = "leave.html"; // 轉跳請假頁
+        window.location.href = "leave.html";  // ✅ 跳轉到請假頁面
       } else {
         alert("帳號或密碼錯誤");
       }
