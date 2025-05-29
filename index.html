@@ -156,7 +156,7 @@
   const pass = document.getElementById("password").value.trim();
   const error = document.getElementById("loginError");
 
-  fetch(`https://script.google.com/macros/s/你的部署網址/exec?username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`)
+  fetch(`https://script.google.com/macros/s/AKfycbwdNj-rkggQyv4w5E3D2WLopSsqywARq3IB7Luf5zIvd7x7GUmxgLoJ37ni7blz2aCq/exec?username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`)
     .then(res => res.text())
     .then(role => {
       if (role === "staff") {
