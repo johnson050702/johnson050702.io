@@ -152,22 +152,29 @@
 
   <script>
     function login() {
-      const user = document.getElementById("username").value.trim();
-      const pass = document.getElementById("password").value.trim();
-      const error = document.getElementById("loginError");
+  const user = document.getElementById("username").value.trim();
+  const pass = document.getElementById("password").value.trim();
+  const error = document.getElementById("loginError");
 
-      if (user === "staff" && pass === "1234") {
+  fetch(`https://script.google.com/macros/s/你的部署網址/exec?username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`)
+    .then(res => res.text())
+    .then(role => {
+      if (role === "staff") {
         window.location.href = "leave.html";
-      } else if (user === "admin" && pass === "1234") {
+      } else if (role === "manager" || role === "admin") {
         document.getElementById("loginBox").style.display = "none";
         document.getElementById("tabs").style.display = "flex";
-        switchTab('leave');
+        switchTab("leave");
         loadLeaveData();
-        error.textContent = "";
       } else {
         error.textContent = "❌ 帳號或密碼錯誤";
       }
-    }
+    })
+    .catch(err => {
+      error.textContent = "❌ 登入失敗：" + err;
+    });
+}
+
 
     function switchTab(tab) {
       document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
