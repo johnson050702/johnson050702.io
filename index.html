@@ -202,43 +202,42 @@
     }
 
     function registerUser() {
-      const user = document.getElementById("newUser").value.trim();
-      const pass = document.getElementById("newPass").value.trim();
-      const role = document.getElementById("newRole").value;
-      const msg = document.getElementById("registerMsg");
+  const user = document.getElementById("newUser").value.trim();
+  const pass = document.getElementById("newPass").value.trim();
+  const role = document.getElementById("newRole").value;
+  const msg = document.getElementById("registerMsg");
 
-      if (!user || !pass) {
-        msg.style.color = "red";
-        msg.textContent = "❗請輸入完整帳號與密碼";
-        return;
-      }
+  if (!user || !pass) {
+    msg.style.color = "red";
+    msg.textContent = "❗請輸入完整帳號與密碼";
+    return;
+  }
 
-      fetch("https://script.google.com/macros/s/AKfycbz7KbRxDDoJBjOpGMpG1USD2EHitWW_cH0MH9YXp48wDolfBV2cK51XN3pvT-RSk-SI/exec", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: `username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}&role=${role}`
-      })
-
-      .then(res => res.text())
-      .then(result => {
-        if (result === "OK") {
-          msg.style.color = "green";
-          msg.textContent = "✅ 帳號建立成功";
-        } else if (result === "EXISTS") {
-          msg.style.color = "red";
-          msg.textContent = "⚠️ 帳號已存在";
-        } else {
-          msg.style.color = "red";
-          msg.textContent = "❌ 建立失敗";
-        }
-      })
-      .catch(err => {
-        msg.style.color = "red";
-        msg.textContent = "❌ 錯誤：" + err;
-      });
+  fetch("https://script.google.com/macros/s/AKfycbz7KbRxDDoJBjOpGMpG1USD2EHitWW_cH0MH9YXp48wDolfBV2cK51XN3pvT-RSk-SI/exec", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}&role=${role}`
+  })
+  .then(res => res.text())
+  .then(result => {
+    console.log("⚠️ 回傳結果：", result); // ✅ 顯示真實錯誤內容
+    if (result === "OK") {
+      msg.style.color = "green";
+      msg.textContent = "✅ 帳號建立成功";
+    } else if (result === "EXISTS") {
+      msg.style.color = "red";
+      msg.textContent = "⚠️ 帳號已存在";
+    } else {
+      msg.style.color = "red";
+      msg.textContent = "❌ 建立失敗：" + result; // ✅ 顯示實際錯誤
     }
+  })
+  .catch(err => {
+    msg.style.color = "red";
+    msg.textContent = "❌ 網路錯誤：" + err;
+  });
+}
+
   </script>
 </body>
 </html>
