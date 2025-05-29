@@ -65,7 +65,7 @@
 <body>
   <div class="form-container">
     <h2>請假表單</h2>
-    <form method="POST" action="https://script.google.com/macros/s/AKfycbxuYwtY7ehDvers4seHOdtSUVlr5U6VNh1ZEO3tiYQA7cRrFXKWzOBBraQ1LXeZHl0o/exec" target="hidden_iframe" onsubmit="submitted=true;">
+    <form method="POST" action="https://script.google.com/macros/s/AKfycbzQj6HguoxKViKAjK48EKFk6pCD9nCBXC7eJf8S4K5jWr6Ts_cqr5DZiD1ifDwuyhs/exec" target="hidden_iframe" onsubmit="submitted=true;">
       <label for="name">姓名</label>
       <input type="text" name="name" required>
 
@@ -94,7 +94,7 @@
     </form>
   </div>
 
-  <!-- 隱藏 iframe，避免跳轉頁面 -->
+  <!-- ✅ 隱藏 iframe，避免畫面跳轉 -->
   <iframe name="hidden_iframe" style="display:none;" onload="if(submitted) alert('✅ 表單已提交並儲存！');"></iframe>
 
   <script>
