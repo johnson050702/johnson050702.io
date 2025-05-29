@@ -177,7 +177,7 @@
     }
 
     function loadLeaveData() {
-      fetch("https://script.google.com/macros/s/AKfycbycTCemgNZXnWaxvTGp99rJ7GueEs9OAqx8n3amTT2pqrQxdmL4H3ur9Q0JBig2goI7/exec")
+      fetch("https://script.google.com/macros/s/AKfycbw-fNcJk8G3kXqIWLVoqhMHYz7gMFRnsPv5XqA5m62HlJ2WPMaKbdI-6hvl8ptuu8CT/exec")
         .then(res => res.json())
         .then(data => {
           const tbody = document.querySelector("#leaveTable tbody");
@@ -213,7 +213,7 @@
         return;
       }
 
-      fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbycTCemgNZXnWaxvTGp99rJ7GueEs9OAqx8n3amTT2pqrQxdmL4H3ur9Q0JBig2goI7/exec", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: `username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}&role=${role}`
