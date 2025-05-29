@@ -6,12 +6,12 @@
   <style>
     body {
       font-family: "微軟正黑體", sans-serif;
-      background: linear-gradient(to right, #e8f5e9, #a5d6a7);
+      background-color: #f8f8f8;
       display: flex;
       justify-content: center;
       align-items: flex-start;
       padding-top: 60px;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
     }
     .form-container {
@@ -42,8 +42,9 @@
     .time-options {
       margin-top: 10px;
     }
-    .time-options input {
-      margin-right: 5px;
+    .time-options label {
+      display: inline-block;
+      margin-right: 10px;
     }
     button {
       margin-top: 20px;
@@ -64,15 +65,15 @@
 <body>
   <div class="form-container">
     <h2>請假表單</h2>
-    <form id="leaveForm">
+    <form method="POST" action="https://script.google.com/macros/s/AKfycbxuYwtY7ehDvers4seHOdtSUVlr5U6VNh1ZEO3tiYQA7cRrFXKWzOBBraQ1LXeZHl0o/exec" target="hidden_iframe" onsubmit="submitted=true;">
       <label for="name">姓名</label>
-      <input type="text" id="name" required>
+      <input type="text" name="name" required>
 
       <label for="date">請假日期</label>
-      <input type="date" id="date" required>
+      <input type="date" name="date" required>
 
       <label for="type">假別</label>
-      <select id="type" required>
+      <select name="type" required>
         <option value="">請選擇</option>
         <option value="事假">事假</option>
         <option value="病假">病假</option>
@@ -87,41 +88,17 @@
       </div>
 
       <label for="reason">請假原因</label>
-      <textarea id="reason" rows="4" required></textarea>
+      <textarea name="reason" rows="4" required></textarea>
 
       <button type="submit">送出</button>
     </form>
   </div>
 
+  <!-- 隱藏 iframe，避免跳轉頁面 -->
+  <iframe name="hidden_iframe" style="display:none;" onload="if(submitted) alert('✅ 表單已提交並儲存！');"></iframe>
+
   <script>
-    document.getElementById("leaveForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-
-      const data = {
-        name: document.getElementById("name").value,
-        date: document.getElementById("date").value,
-        type: document.getElementById("type").value,
-        time: document.querySelector('input[name="time"]:checked').value,
-        reason: document.getElementById("reason").value
-      };
-
-      fetch("https://script.google.com/macros/s/AKfycbxuYwtY7ehDvers4seHOdtSUVlr5U6VNh1ZEO3tiYQA7cRrFXKWzOBBraQ1LXeZHl0o/exec", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      })
-      .then(response => response.text())
-      .then(result => {
-        alert("✅ 表單已提交並儲存！");
-        document.getElementById("leaveForm").reset();
-      })
-      .catch(error => {
-        alert("❌ 提交失敗，請稍後再試");
-        console.error("錯誤：", error);
-      });
-    });
+    let submitted = false;
   </script>
 </body>
 </html>
